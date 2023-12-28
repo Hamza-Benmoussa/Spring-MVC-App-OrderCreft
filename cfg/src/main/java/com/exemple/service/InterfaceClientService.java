@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface InterfaceClientService {
 
-    List<Client> getUsers();
+    List<Client> getClients();
 
-    Client getUserById(Long id);
+    Client getClientById(Long id);
 
-    void addUser(Client client);
+    Client addClient(Client client);
 
-    void updateUser(Client client);
+    Client updateClient(Client client);
 
-    void deleteUser(Long id);
+    Client deleteClient(Long id);
 }

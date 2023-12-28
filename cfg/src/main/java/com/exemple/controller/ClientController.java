@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -15,11 +14,11 @@ import java.util.List;
 public class ClientController {
 
     @Autowired
-    private InterfaceClientService interfaceUserService;
+    private InterfaceClientService interfaceClientService;
 
     @GetMapping("/")
     public String showClients(Model model) {
-        List<Client> clients = interfaceUserService.getUsers();
+        List<Client> clients = interfaceClientService.getClients();
         model.addAttribute("clients", clients);
         return "client/showClients";
     }
@@ -32,13 +31,13 @@ public class ClientController {
 
     @PostMapping("/add")
     public String addClient(@ModelAttribute Client client) {
-        interfaceUserService.addUser(client);
+        interfaceClientService.addClient(client);
         return "redirect:/clients/";
     }
 
     @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable("id") Long id, Model model) {
-        Client client = interfaceUserService.getUserById(id);
+        Client client = interfaceClientService.getClientById(id);
         model.addAttribute("client", client);
         return "client/updateClientForm";
     }
@@ -46,14 +45,14 @@ public class ClientController {
     @PostMapping("/update")
     public String updateClient(@ModelAttribute Client client) {
         System.out.println(client);
-        interfaceUserService.updateUser(client);
+        interfaceClientService.updateClient(client);
         return "redirect:/clients/";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteClient(@PathVariable("id") Long id) {
         System.out.println("slm");
-        interfaceUserService.deleteUser(id);
+        interfaceClientService.deleteClient(id);
         return "redirect:/clients/";
     }
 }

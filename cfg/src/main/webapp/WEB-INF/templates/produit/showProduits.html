@@ -1,15 +1,14 @@
-<!-- showClients.html -->
+<!-- showProduits.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Liste des Clients</title>
+    <title>Liste des Produits</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" th:href="@{../css/bootstrap.min.css}"/>
 </head>
 <body>
-<!-- Include the common navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="home.html">ArtWood</a>
+    <a class="navbar-brand" href="/">ArtWood</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarProduits"
             aria-controls="navbarProduits" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -17,50 +16,47 @@
     <div class="collapse navbar-collapse" id="navbarProduits">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="home.html">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
-            <!-- Add Client -->
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/clients/add}">Add Client</a>
+                <a class="nav-link" href="/produits/s/add">Add Produit</a>
             </li>
-            <!-- Show Clients -->
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/clients/}">Show Clients</a>
+                <a class="nav-link" href="/clients//">Search Produits</a>
             </li>
-            <!-- Logout -->
             <li class="nav-item">
-                <a class="nav-link" href="logout.html">Logout</a>
+                <a class="nav-link" href="/logout">Logout</a>
             </li>
         </ul>
     </div>
 </nav>
 <div class="container mt-4">
-    <h2>Liste des Clients</h2>
+    <h2>Liste des Produits</h2>
     <table class="table">
         <thead>
         <tr>
-            <th>Client ID</th>
-            <th>Nom du Client</th>
-            <th>Email</th>
-            <th>Adresse</th>
+            <th>Produit ID</th>
+            <th>Nom du Produit</th>
+            <th>Prix</th>
+            <th>Quantite</th>
         </tr>
         </thead>
         <tbody>
-        <!-- Your Thymeleaf iteration to display clients -->
-        <tr th:each="client : ${clients}">
-            <td th:text="${client.idClient}"></td>
-            <td th:text="${client.nameClient}"></td>
-            <td th:text="${client.emailClient}"></td>
-            <td th:text="${client.addressClient}"></td>
+        <!-- Your Thymeleaf iteration to display products -->
+        <tr th:each="produit : ${produits}">
+            <td th:text="${produit.idProduit}"></td>
+            <td th:text="${produit.nameProduit}"></td>
+            <td th:text="${produit.prixProduit}"></td>
+            <td th:text="${produit.quantiteProduit}"></td>
             <td>
                 <!-- Delete Button -->
-                <form th:action="@{'/clients/delete/' + ${client.idClient}}"  style="display: inline;">
+                <form th:action="@{'/produits/delete/' + ${produit.idProduit}}"  style="display: inline;">
                     <input type="hidden" name="_method" value="delete"/>
                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                 </form>
 
                 <!-- Edit Button -->
-                <a th:href="@{'/clients/update/' + ${client.idClient}}" method="post" class="btn btn-primary btn-sm">Edit</a>
+                <a th:href="@{'/produits/update/' + ${produit.idProduit}}" method="post" class="btn btn-primary btn-sm">Edit</a>
             </td>
         </tr>
         </tbody>

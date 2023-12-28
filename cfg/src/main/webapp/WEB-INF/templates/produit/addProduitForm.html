@@ -1,15 +1,14 @@
-<!-- addClientForm.html -->
+<!-- addProduitForm.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Gestion Clients</title>
+    <title>Gestion Produits</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" th:href="@{../css/bootstrap.min.css}"/>
 </head>
 <body>
-<!-- Include the common navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="home.html">ArtWood</a>
+    <a class="navbar-brand" href="/">ArtWood</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarProduits"
             aria-controls="navbarProduits" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -17,19 +16,16 @@
     <div class="collapse navbar-collapse" id="navbarProduits">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="home.html">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
-            <!-- Add Produit -->
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/clients/add}">Add Client</a>
+                <a class="nav-link" href="/produits/add">Add Client</a>
             </li>
-            <!-- Show Produits -->
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/clients/}">Show Produits</a>
+                <a class="nav-link" href="/clients/">Search Client</a>
             </li>
-            <!-- Logout -->
             <li class="nav-item">
-                <a class="nav-link" href="logout.html">Logout</a>
+                <a class="nav-link" href="/logout">Logout</a>
             </li>
         </ul>
     </div>
@@ -37,30 +33,30 @@
 <div class="container mt-4">
     <div class="card">
         <div class="card-header">
-            <h5 class="card-title">Ajouter un Client</h5>
+            <h5 class="card-title">Ajouter un Produit</h5>
         </div>
         <div class="card-body">
-            <form th:action="@{/clients/add}" th:object="${client}" method="post">
-                <input type="hidden" name="id" th:field="*{idClient}" />
+            <form th:action="@{/produits/add}" th:object="${produit}" method="post">
+                <input type="hidden" name="id" th:field="*{idProduit}" />
                 <div class="shadow sm:rounded-md sm:overflow-hidden">
                     <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
-                        <!-- Name Input -->
+                        <!-- Product Name Input -->
                         <div class="form-group">
-                            <label for="name">Nom du Client:</label>
-                            <input type="text" class="form-control" id="name" th:field="*{nameClient}" required>
+                            <label for="name">Nom du Produit:</label>
+                            <input type="text" class="form-control" id="name" th:field="*{nameProduit}" required>
                         </div>
-                        <!-- Email Input -->
+                        <!-- Product Price Input -->
                         <div class="form-group">
-                            <label for="email">Email du Client:</label>
-                            <input type="text" class="form-control" id="email" th:field="*{emailClient}" required>
+                            <label for="price">Prix du Produit:</label>
+                            <input type="number" class="form-control" id="price" th:field="*{prixProduit}" required>
                         </div>
-                        <!-- Address Input -->
+                        <!-- Product Description Input -->
                         <div class="form-group">
-                            <label for="address">Adresse du Client:</label>
-                            <input type="text" class="form-control" id="address" th:field="*{addressClient}" required>
+                            <label for="description">Quantite du Produit:</label>
+                            <input type="text" class="form-control" id="description" th:field="*{quantiteProduit}" required>
                         </div>
                         <!-- Submit Button -->
-                        <button type="submit" class="btn btn-primary mt-3">Ajouter Client</button>
+                        <button type="submit" class="btn btn-primary mt-3">Ajouter Produit</button>
                     </div>
                 </div>
             </form>

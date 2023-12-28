@@ -16,7 +16,7 @@ import javax.persistence.Id;
 public class Produit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idProduit;
+    private Long idProduit;
     private String nameProduit;
     private int prixProduit;
     private int quantiteProduit;

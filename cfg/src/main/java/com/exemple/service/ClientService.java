@@ -4,7 +4,6 @@ import com.exemple.entity.Client;
 import com.exemple.repository.InterfaceClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -12,35 +11,39 @@ import java.util.List;
 public class ClientService implements InterfaceClientService {
 
     @Autowired
-    private InterfaceClientRepository interfaceUserRepository;
+    private InterfaceClientRepository interfaceClientRepository; // Corrected variable name
 
     @Override
     @Transactional
-    public List<Client> getUsers() {
-        return interfaceUserRepository.findAll();
+    public List<Client> getClients() {
+        return interfaceClientRepository.findAll();
     }
 
     @Override
     @Transactional
-    public Client getUserById(Long id) {
-        return interfaceUserRepository.findById(id).orElse(null);
+    public Client getClientById(Long id) {
+        return interfaceClientRepository.findById(id).orElse(null);
     }
 
     @Override
     @Transactional
-    public void addUser(Client client) {
-        interfaceUserRepository.save(client);
+    public Client addClient(Client client) {
+        return interfaceClientRepository.save(client);
     }
 
     @Override
     @Transactional
-    public void updateUser(Client client) {
-        interfaceUserRepository.save(client);
+    public Client updateClient(Client client) {
+        return interfaceClientRepository.save(client);
     }
 
     @Override
     @Transactional
-    public void deleteUser(Long id) {
-        interfaceUserRepository.deleteById(id);
+    public Client deleteClient(Long id) {
+        Client client = getClientById(id);
+        if (client != null) {
+            interfaceClientRepository.deleteById(id);
+        }
+        return client;
     }
 }
