@@ -1,0 +1,46 @@
+<!-- showClients.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des Clients</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{../css/bootstrap.min.css}"/>
+</head>
+<body>
+<!-- Include the common navbar -->
+<!--<div th:replace="navbar :: navbar"></div>-->
+
+<div class="container mt-4">
+    <h2>Liste des Clients</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Client ID</th>
+            <th>Nom du Client</th>
+            <th>Email</th>
+            <th>Adresse</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Your Thymeleaf iteration to display clients -->
+        <tr th:each="client : ${clients}">
+            <td th:text="${client.idClient}"></td>
+            <td th:text="${client.nameClient}"></td>
+            <td th:text="${client.emailClient}"></td>
+            <td th:text="${client.addressClient}"></td>
+            <td>
+                <!-- Delete Button -->
+                <form th:action="@{'/clients/delete/' + ${client.idClient}}"  style="display: inline;">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+
+                <!-- Edit Button -->
+                <a th:href="@{'/clients/update/' + ${client.idClient}}" method="post" class="btn btn-primary btn-sm">Edit</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

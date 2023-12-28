@@ -1,0 +1,43 @@
+<!-- updateClientForm.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestion Clients</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{../css/bootstrap.min.css}"/>
+</head>
+<body>
+<!-- Include the common navbar -->
+<!--<div th:replace="navbar :: navbar"></div>-->
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Mettre à jour le Client</h5>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/clients/update}" th:object="${client}" method="post">
+                <input type="hidden" name="id" th:field="*{idClient}" />
+                <div class="shadow sm:rounded-md sm:overflow-hidden">
+                    <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
+                        <div class="form-group">
+                            <label for="name">Nom du Client:</label>
+                            <input type="text" class="form-control" id="name" th:field="*{nameClient}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email du Client:</label>
+                            <input type="text" class="form-control" id="email" th:field="*{emailClient}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Adresse du Client:</label>
+                            <input type="text" class="form-control" id="address" th:field="*{addressClient}" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Mettre à jour le Client</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
