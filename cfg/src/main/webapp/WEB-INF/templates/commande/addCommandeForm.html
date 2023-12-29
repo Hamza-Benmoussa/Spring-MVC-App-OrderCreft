@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <meta charset="UTF-8">
+    <title>Add Commande</title>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function updateTotalPrice() {
+            var total = 0;
+
+            // Loop through each checkbox
+            document.querySelectorAll('input[name="produitIds"]:checked').forEach(function(checkbox) {
+                // Get the quantity input for the corresponding product
+                var quantityInputId = 'quantity-' + checkbox.value;
+                var quantity = document.getElementById(quantityInputId).value;
+
+                // Get the price per unit for the corresponding product
+                var pricePerUnit = parseFloat(document.getElementById('price-' + checkbox.value).innerText);
+
+                // Calculate the total price for the product and add it to the total
+                total += quantity * pricePerUnit;
+            });
+
+            // Update the total price display
+            document.getElementById('totalPrice').innerText = total.toFixed(2);
+        }
+        /*]]>*/
+    </script>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" th:href="@{/}">ArtWood</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarProduits"
+            aria-controls="navbarProduits" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarProduits">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <!-- Add Produit -->
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/commandes/add}">Add Commande</a>
+            </li>
+            <!-- Show Produits -->
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/commandes/}">Show Commande</a>
+            </li>
+            <!-- Logout -->
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/raport}">rapport</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container mt-5">
+    <h2 class="mb-4">Add Commande</h2>
+
+    <form th:action="@{/commandes/add}" th:object="${commande}" method="post">
+        <div class="form-group">
+            <label for="client">Select Client:</label>
+            <select class="form-control" id="client" name="client.idClient" th:field="*{client.idClient}">
+                <option th:each="client : ${clients}" th:value="${client.idClient}" th:text="${client.nameClient}" th:selected="${client.idClient eq commande.client?.idClient}"></option>
+            </select>
+        </div>
+
+        <div class="form-group" th:each="produit, iterStat : ${produits}">
+            <label th:text="${produit.nameProduit}"></label>
+            <input type="checkbox" th:id="'produit-' + ${produit.idProduit}" th:value="${produit.idProduit}" th:name="'produitIds'" onclick="updateTotalPrice()" />
+            <label th:for="'produit-' + ${produit.idProduit}"></label>
+            <input type="hidden" th:id="'quantity-' + ${produit.idProduit}" th:value="0" />
+            <input type="text" class="form-control" th:id="'quantity-' + ${iterStat.index}" th:name="'quantities'" oninput="updateTotalPrice()" />
+            <span th:id="'price-' + ${produit.idProduit}" th:text="${produit.prixProduit}" style="display:none;"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="status">Select Status:</label>
+            <select class="form-control" id="status" name="statusOrder" th:field="*{statusOrder}">
+                <option value="INPROGRESS">In Progress</option>
+                <option value="DELIVERED">Delivered</option>
+                <option value="CANCELED">Canceled</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="totalPrice">Total Price:</label>
+            <span id="totalPrice" class="font-weight-bold">0.00</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Commande</button>
+    </form>
+</div>
+
+</body>
+</html>

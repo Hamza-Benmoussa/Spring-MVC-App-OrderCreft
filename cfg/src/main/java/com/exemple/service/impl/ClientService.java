@@ -1,7 +1,8 @@
-package com.exemple.service;
+package com.exemple.service.impl;
 
 import com.exemple.entity.Client;
 import com.exemple.repository.InterfaceClientRepository;
+import com.exemple.service.InterfaceClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;

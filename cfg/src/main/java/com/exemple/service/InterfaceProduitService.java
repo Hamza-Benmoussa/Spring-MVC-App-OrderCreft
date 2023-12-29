@@ -16,4 +16,5 @@ public interface InterfaceProduitService {
     Produit updateProduit(Produit produit);
 
     Produit deleteProduit(Long id);
+    List<Produit> getMostAddedArticlesToCommandes();
 }
