@@ -32,6 +32,11 @@
     </div>
 </nav>
 <div class="container mt-4">
+
+    <div id="successMessage" th:if="${success}" class="card bg-success text-white">
+        <p class="card-text" th:text="${success}"></p>
+    </div>
+
     <h2>Liste des Clients</h2>
     <table class="table">
         <thead>
@@ -63,5 +68,19 @@
         </tbody>
     </table>
 </div>
+<script>
+    // Wait for the document to be ready
+    document.addEventListener("DOMContentLoaded", function () {
+        // Check if the success message exists
+        var successMessage = document.getElementById("successMessage");
+
+        // If the success message exists, hide it after 3000 milliseconds (3 seconds)
+        if (successMessage) {
+            setTimeout(function () {
+                successMessage.style.display = 'none';
+            }, 3000);
+        }
+    });
+</script>
 </body>
 </html>

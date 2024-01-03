@@ -1,64 +1,84 @@
-<!-- updateClientForm.html -->
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Gestion Clients</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" th:href="@{../css/bootstrap.min.css}"/>
-</head>
-<body>
-<!-- Include the common navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="home.html">ArtWood</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarProduits"
-            aria-controls="navbarProduits" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarProduits">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <!-- Add Produit -->
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/clients/add}">Add Client</a>
-            </li>
-            <!-- Show Produits -->
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/clients/}">Show Clients</a>
-            </li>
+    <!-- updateClientForm.html -->
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Gestion Clients</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" th:href="@{../css/bootstrap.min.css}"/>
+    </head>
+    <body>
 
-        </ul>
-    </div>
-</nav>
-<div class="container mt-4">
-    <div class="card">
-        <div class="card-header">
-            <h5 class="card-title">Mettre à jour le Client</h5>
+    <!-- Include the common navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="home.html">ArtWood</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarProduits"
+                aria-controls="navbarProduits" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarProduits">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <!-- Add Produit -->
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/clients/add}">Add Client</a>
+                </li>
+                <!-- Show Produits -->
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/clients/}">Show Clients</a>
+                </li>
+
+            </ul>
         </div>
-        <div class="card-body">
-            <form th:action="@{/clients/update}" th:object="${client}" method="post">
-                <input type="hidden" name="id" th:field="*{idClient}" />
-                <div class="shadow sm:rounded-md sm:overflow-hidden">
-                    <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
-                        <div class="form-group">
-                            <label for="name">Nom du Client:</label>
-                            <input type="text" class="form-control" id="name" th:field="*{nameClient}" required>
+    </nav>
+    <div class="container mt-4">
+        <div id="successMessage" th:if="${success}" class="card bg-success text-white">
+            <p class="card-text" th:text="${success}"></p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Mettre à jour le Client</h5>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/clients/update}" th:object="${client}" method="post">
+                    <input type="hidden" name="id" th:field="*{idClient}" />
+                    <div class="shadow sm:rounded-md sm:overflow-hidden">
+                        <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
+                            <div class="form-group">
+                                <label for="name">Nom du Client:</label>
+                                <input type="text" class="form-control" id="name" th:field="*{nameClient}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email du Client:</label>
+                                <input type="text" class="form-control" id="email" th:field="*{emailClient}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Adresse du Client:</label>
+                                <input type="text" class="form-control" id="address" th:field="*{addressClient}" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3">Mettre à jour le Client</button>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email du Client:</label>
-                            <input type="text" class="form-control" id="email" th:field="*{emailClient}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="address">Adresse du Client:</label>
-                            <input type="text" class="form-control" id="address" th:field="*{addressClient}" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary mt-3">Mettre à jour le Client</button>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-</body>
-</html>
+
+    <script>
+        // Wait for the document to be ready
+        document.addEventListener("DOMContentLoaded", function () {
+            // Check if the success message exists
+            var successMessage = document.getElementById("successMessage");
+
+            // If the success message exists, hide it after 3000 milliseconds (3 seconds)
+            if (successMessage) {
+                setTimeout(function () {
+                    successMessage.style.display = 'none';
+                }, 3000);
+            }
+        });
+    </script>
+    </body>
+    </html>

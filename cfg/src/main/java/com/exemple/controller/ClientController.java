@@ -11,6 +11,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/clients")
+@SessionAttributes({"success"})
 public class ClientController {
 
     @Autowired
@@ -30,8 +31,10 @@ public class ClientController {
     }
 
     @PostMapping("/add")
-    public String addClient(@ModelAttribute Client client) {
+    public String addClient(@ModelAttribute Client client, Model model) {
         interfaceClientService.addClient(client);
+        model.addAttribute("success", "Client created successfully.");
+
         return "redirect:/clients/";
     }
 
@@ -43,16 +46,19 @@ public class ClientController {
     }
 
     @PostMapping("/update")
-    public String updateClient(@ModelAttribute Client client) {
+    public String updateClient(@ModelAttribute Client client , Model model) {
         System.out.println(client);
         interfaceClientService.updateClient(client);
+        model.addAttribute("success", "Update was successfully.");
         return "redirect:/clients/";
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteClient(@PathVariable("id") Long id) {
+    public String deleteClient(@PathVariable("id") Long id ,Model model) {
         System.out.println("slm");
         interfaceClientService.deleteClient(id);
+        model.addAttribute("success", "Delete was successfully.");
+
         return "redirect:/clients/";
     }
 }
