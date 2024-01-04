@@ -11,6 +11,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/produits")
+@SessionAttributes({"success"})
 public class ProduitController {
 
     @Autowired
@@ -30,8 +31,9 @@ public class ProduitController {
     }
 
     @PostMapping("/add")
-    public String addProduit(@ModelAttribute Produit produit) {
+    public String addProduit(@ModelAttribute Produit produit , Model model) {
         interfaceProduitService.addProduit(produit); // Adjust the method name
+        model.addAttribute("success", "Client created successfully.");
         return "redirect:/produits/";
     }
 
@@ -43,16 +45,18 @@ public class ProduitController {
     }
 
     @PostMapping("/update")
-    public String updateProduit(@ModelAttribute Produit produit) {
+    public String updateProduit(@ModelAttribute Produit produit,Model model) {
         System.out.println(produit);
         interfaceProduitService.updateProduit(produit); // Adjust the method name
+        model.addAttribute("success", "Update was successfully.");
         return "redirect:/produits/";
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteProduit(@PathVariable("id") Long id) {
+    public String deleteProduit(@PathVariable("id") Long id ,Model model) {
         System.out.println("slm");
         interfaceProduitService.deleteProduit(id); // Adjust the method name
+        model.addAttribute("success", "Delete was successfully.");
         return "redirect:/produits/";
     }
 }
