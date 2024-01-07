@@ -18,6 +18,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/commandes")
+@SessionAttributes({"success"})
 public class CommandeController {
 
     @Autowired
@@ -51,12 +52,11 @@ public class CommandeController {
         model.addAttribute("produits", produits);
         model.addAttribute("commande", new Commande());
         model.addAttribute("orderProduits", new ArrayList<>()); // For displaying selected products in the form
-
         return "commande/addCommandeForm";
     }
 
     @PostMapping("/add")
-    public String addCommande(@ModelAttribute Commande commande, @RequestParam("produitIds") List<Long> produitIds, @RequestParam("quantities") List<Integer> quantities) {
+    public String addCommande(@ModelAttribute Commande commande, @RequestParam("produitIds") List<Long> produitIds, @RequestParam("quantities") List<Integer> quantities,Model model) {
         // Create OrderProduit instances based on selected products and quantities
         List<OrderProduit> orderProduits = createOrderProduits(commande, produitIds, quantities);
 
@@ -72,7 +72,7 @@ public class CommandeController {
 
         // Save the Commande entity
         interfaceCommandeService.addOrder(commande);
-
+        model.addAttribute("success", "Commande created successfully.");
         return "redirect:/commandes/show/" + commande.getIdOrder();
     }
 

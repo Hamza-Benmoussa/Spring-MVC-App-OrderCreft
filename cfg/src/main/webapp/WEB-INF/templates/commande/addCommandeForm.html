@@ -58,7 +58,9 @@
     </div>
 </nav>
 <div class="container mt-5">
-
+    <div id="successMessage" th:if="${success}" class="card bg-success text-white">
+        <p class="card-text" th:text="${success}"></p>
+    </div>
     <h2 class="mb-4">Add Commande</h2>
 
     <form th:action="@{/commandes/add}" th:object="${commande}" method="post">
@@ -89,6 +91,19 @@
         <button type="submit" class="btn btn-primary">Add Commande</button>
     </form>
 </div>
+<script>
+    // Wait for the document to be ready
+    document.addEventListener("DOMContentLoaded", function () {
+        // Check if the success message exists
+        var successMessage = document.getElementById("successMessage");
 
+        // If the success message exists, hide it after 3000 milliseconds (3 seconds)
+        if (successMessage) {
+            setTimeout(function () {
+                successMessage.style.display = 'none';
+            }, 3000);
+        }
+    });
+</script>
 </body>
 </html>
